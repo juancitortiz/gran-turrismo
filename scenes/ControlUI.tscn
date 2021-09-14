@@ -1,0 +1,115 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scripts/ControlUI.gd" type="Script" id=1]
+[ext_resource path="res://IGNORAR/valores car.png" type="Texture" id=2]
+[ext_resource path="res://scripts/PauseCanvasLayer.gd" type="Script" id=3]
+
+[node name="Control UI" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="SpeedLabel" type="Label" parent="CanvasLayer"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 50.0
+margin_bottom = 24.0
+text = "Test speed"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CarPosLabel" type="Label" parent="CanvasLayer"]
+margin_left = 10.0
+margin_top = 30.0
+margin_right = 50.0
+margin_bottom = 24.0
+text = "Test car pos"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LapsLabel" type="Label" parent="CanvasLayer"]
+margin_left = 10.0
+margin_top = 50.0
+margin_right = 50.0
+margin_bottom = 24.0
+text = "Test laps"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RPMLabel" type="Label" parent="CanvasLayer"]
+margin_left = 10.0
+margin_top = 70.0
+margin_right = 50.0
+margin_bottom = 24.0
+text = "Test rpm"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GearLabel" type="Label" parent="CanvasLayer"]
+margin_left = 10.0
+margin_top = 90.0
+margin_right = 50.0
+margin_bottom = 24.0
+text = "Test gear"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WonMessageLabel" type="Label" parent="CanvasLayer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -59.0
+margin_top = -7.0
+margin_right = 59.0
+margin_bottom = 7.0
+text = "Test won message"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PauseCanvasLayer" type="CanvasLayer" parent="."]
+pause_mode = 2
+script = ExtResource( 3 )
+
+[node name="PausePopup" type="Popup" parent="PauseCanvasLayer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 20.0
+margin_bottom = 20.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="PauseCanvasLayer/PausePopup"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -397.0
+margin_top = -186.5
+margin_right = 397.0
+margin_bottom = 186.5
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="PauseCanvasLayer/PausePopup"]
+margin_right = 40.0
+margin_bottom = 14.0
+text = "Test pause"

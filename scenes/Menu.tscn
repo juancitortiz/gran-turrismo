@@ -1,0 +1,47 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scripts/Menu.gd" type="Script" id=1]
+
+[node name="Menu" type="Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -131.0
+margin_top = -63.0
+margin_right = 131.0
+margin_bottom = 63.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StartBtn" type="Button" parent="VBoxContainer"]
+margin_right = 262.0
+margin_bottom = 20.0
+text = "Start"
+
+[node name="OptionsBtn" type="Button" parent="VBoxContainer"]
+margin_top = 24.0
+margin_right = 262.0
+margin_bottom = 44.0
+text = "Options"
+
+[node name="ExitBtn" type="Button" parent="VBoxContainer"]
+margin_top = 48.0
+margin_right = 262.0
+margin_bottom = 68.0
+text = "Exit"
+
+[connection signal="pressed" from="VBoxContainer/StartBtn" to="." method="_on_StartBtn_pressed"]
+[connection signal="pressed" from="VBoxContainer/OptionsBtn" to="." method="_on_OptionsBtn_pressed"]
+[connection signal="pressed" from="VBoxContainer/ExitBtn" to="." method="_on_ExitBtn_pressed"]

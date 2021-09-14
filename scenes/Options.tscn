@@ -1,0 +1,77 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scripts/Options.gd" type="Script" id=1]
+
+[node name="Options" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 20.0
+margin_bottom = 20.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainerLaps" type="HBoxContainer" parent="VBoxContainer"]
+margin_right = 153.0
+margin_bottom = 24.0
+custom_constants/separation = 50
+
+[node name="LapsLabel" type="Label" parent="VBoxContainer/HBoxContainerLaps"]
+margin_top = 5.0
+margin_right = 29.0
+margin_bottom = 19.0
+text = "Laps"
+
+[node name="LapsInput" type="SpinBox" parent="VBoxContainer/HBoxContainerLaps"]
+margin_left = 79.0
+margin_right = 153.0
+margin_bottom = 24.0
+min_value = 1.0
+value = 1.0
+align = 1
+
+[node name="HBoxContainerName" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 28.0
+margin_right = 153.0
+margin_bottom = 52.0
+custom_constants/separation = 50
+
+[node name="NameLabel" type="Label" parent="VBoxContainer/HBoxContainerName"]
+margin_top = 5.0
+margin_right = 38.0
+margin_bottom = 19.0
+text = "Name"
+
+[node name="NameInput" type="LineEdit" parent="VBoxContainer/HBoxContainerName"]
+margin_left = 88.0
+margin_right = 146.0
+margin_bottom = 24.0
+align = 1
+
+[node name="Button" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -6.0
+margin_top = -72.3843
+margin_right = 96.0
+margin_bottom = -52.3843
+text = "Save and Back"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
