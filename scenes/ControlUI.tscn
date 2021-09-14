@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scripts/ControlUI.gd" type="Script" id=1]
-[ext_resource path="res://IGNORAR/valores car.png" type="Texture" id=2]
+[ext_resource path="res://assets/MenuPause/background.png" type="Texture" id=2]
 [ext_resource path="res://scripts/PauseCanvasLayer.gd" type="Script" id=3]
 
 [node name="Control UI" type="Control"]
@@ -83,33 +83,64 @@ pause_mode = 2
 script = ExtResource( 3 )
 
 [node name="PausePopup" type="Popup" parent="PauseCanvasLayer"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -20.0
-margin_top = -20.0
-margin_right = 20.0
-margin_bottom = 20.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="TextureRect" type="TextureRect" parent="PauseCanvasLayer/PausePopup"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -397.0
-margin_top = -186.5
-margin_right = 397.0
-margin_bottom = 186.5
+modulate = Color( 1, 1, 1, 0.588235 )
+anchor_right = 1.0
+anchor_bottom = 1.0
 texture = ExtResource( 2 )
+expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="PauseCanvasLayer/PausePopup"]
-margin_right = 40.0
-margin_bottom = 14.0
-text = "Test pause"
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseCanvasLayer/PausePopup/TextureRect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -30.5
+margin_top = -24.0
+margin_right = 30.5
+margin_bottom = 24.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="PauseCanvasLayer/PausePopup/TextureRect/VBoxContainer"]
+margin_right = 69.0
+margin_bottom = 48.0
+text = "
+On Pause
+"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ContinueBtn" type="Button" parent="PauseCanvasLayer/PausePopup/TextureRect/VBoxContainer"]
+margin_top = 52.0
+margin_right = 69.0
+margin_bottom = 72.0
+text = "Continue"
+
+[node name="OptionsBtn" type="Button" parent="PauseCanvasLayer/PausePopup/TextureRect/VBoxContainer"]
+margin_top = 76.0
+margin_right = 69.0
+margin_bottom = 96.0
+text = "Options"
+
+[node name="ExitBtn" type="Button" parent="PauseCanvasLayer/PausePopup/TextureRect/VBoxContainer"]
+margin_top = 100.0
+margin_right = 69.0
+margin_bottom = 120.0
+text = "Exit"
+
+[connection signal="pressed" from="PauseCanvasLayer/PausePopup/TextureRect/VBoxContainer/ContinueBtn" to="PauseCanvasLayer" method="_on_ContinueBtn_pressed"]
+[connection signal="pressed" from="PauseCanvasLayer/PausePopup/TextureRect/VBoxContainer/OptionsBtn" to="PauseCanvasLayer" method="_on_OptionsBtn_pressed"]
+[connection signal="pressed" from="PauseCanvasLayer/PausePopup/TextureRect/VBoxContainer/ExitBtn" to="PauseCanvasLayer" method="_on_ExitBtn_pressed"]
