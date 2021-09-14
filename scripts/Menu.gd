@@ -8,12 +8,12 @@ func _ready():
 func _on_StartBtn_pressed():
 	print("(Menu) Start")
 	# warning-ignore:return_value_discarded
-	get_tree().change_scene("res://scenes/StartOptions.tscn")
+	Global.check_change_scene_status(get_tree().change_scene("res://scenes/StartOptions.tscn"))
 
 func _on_OptionsBtn_pressed():
 	print("(Menu) Options")
-	get_tree().change_scene("res://scenes/Options.tscn")
+	Global.check_change_scene_status(get_tree().change_scene("res://scenes/Options.tscn"))
 
 func _on_ExitBtn_pressed():
 	print("(Menu) Quit")
-	get_tree().quit()
+	Global.get_tree().quit()

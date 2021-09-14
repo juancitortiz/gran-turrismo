@@ -16,12 +16,10 @@ func _on_Button_pressed():
 		laps_input.value = 0
 	Global.laps = laps_input.value
 	Global.player_name = name_input.text
-	if get_tree().change_scene("res://scenes/Menu.tscn") != OK:
-		print("(StartOptions) Error: falló cambio de escena")
+	Global.check_change_scene_status(get_tree().change_scene("res://scenes/Menu.tscn"))
 
 func _on_BackBtn_pressed():
-	if get_tree().change_scene("res://scenes/Menu.tscn") != OK:
-		print("(StartOptions) Error: falló cambio de escena")
+	Global.check_change_scene_status(get_tree().change_scene("res://scenes/Menu.tscn"))
 
 func _on_PlayBtn_pressed():
 	if laps_input.value == null:
@@ -29,5 +27,4 @@ func _on_PlayBtn_pressed():
 	Global.laps = laps_input.value
 	Global.player_name = name_input.text
 	Global.is_auto_transmission = trans_type_input.pressed
-	if get_tree().change_scene("res://scenes/Main.tscn") != OK:
-		print("(StartOptions) Error: falló cambio de escena")
+	Global.check_change_scene_status(get_tree().change_scene("res://scenes/Main.tscn"))
