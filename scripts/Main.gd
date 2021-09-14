@@ -58,6 +58,5 @@ func _exit_level():
 	$Terrain.queue_free()
 	$"Control UI".queue_free()
 	$".".queue_free()
-# warning-ignore:return_value_discarded
-	get_tree().change_scene("res://scenes/Menu.tscn")
 	print("(Main) change scene to Menu")
+	Global.check_change_scene_status(get_tree().change_scene("res://scenes/Menu.tscn"))

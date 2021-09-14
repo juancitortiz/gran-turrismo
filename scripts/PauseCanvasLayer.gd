@@ -27,4 +27,4 @@ func _on_OptionsBtn_pressed():
 func _on_ExitBtn_pressed():
 	print("(ControlUI) Exit Menu")
 	get_tree().paused = !get_tree().paused
-	get_tree().change_scene("res://scenes/Menu.tscn")
+	Global.check_change_scene_status(get_tree().change_scene("res://scenes/Menu.tscn"))
