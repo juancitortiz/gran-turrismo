@@ -56,7 +56,7 @@ func _check_positions():
 func _exit_level():
 	$Player.queue_free()
 	$Terrain.queue_free()
-	$"Control UI".queue_free()
+	#$"Control UI".queue_free()
 	$".".queue_free()
 	print("(Main) change scene to Menu")
 	Global.check_change_scene_status(get_tree().change_scene("res://scenes/Menu.tscn"))
