@@ -34,3 +34,6 @@ bot = true
 [node name="Player6" parent="." instance=ExtResource( 2 )]
 position = Vector2( 2101.51, 1096.16 )
 bot = true
+
+[connection signal="update_finish_race" from="." to="Control UI" method="_on_Main_update_finish_race"]
+[connection signal="update_stats" from="." to="Control UI" method="_on_Main_update_stats"]

@@ -5,6 +5,9 @@ onready var number_of_laps = 1
 export (bool) var free_mode = false
 onready var players = Array()
 
+signal update_stats(laps, position, speed, rpm, gear)
+signal update_finish_race(visible, msg)
+
 func _ready():
 	number_of_laps = Global.laps
 	_set_players_list()
@@ -12,8 +15,7 @@ func _ready():
 		if !player.bot:
 			player.car.automatic = Global.is_auto_transmission
 		player.curve_points = _set_player_curve_points()
-	$"Control UI/CanvasLayer/WonMessageLabel".set_visible(false)
-	#$"Control UI/CanvasLayer/CarPosLabel".set_visible(false)
+	emit_signal("update_finish_race", false, "")
 	if free_mode:
 		print("(Main) Free mode!")
 
@@ -33,18 +35,24 @@ func _set_player_curve_points():
 
 func _process(_delta):
 	var actual_speed = $Player/Car.get_speed()
-	$"Control UI/CanvasLayer/SpeedLabel".text = str(actual_speed)	
-	$"Control UI/CanvasLayer/LapsLabel".text = "Lap: " + str($Player.current_lap)
-	$"Control UI/CanvasLayer/RPMLabel".text = "RPM: " + str($Player/Car.get_current_rpm())
-	$"Control UI/CanvasLayer/GearLabel".text = "Gear: " + str($Player/Car.get_actual_gear())
+	emit_signal("update_stats",
+				str($Player.current_lap),
+				str(0), str(actual_speed),
+				str($Player/Car.get_current_rpm()),
+				str($Player/Car.get_actual_gear()))
 	if race_stat != "finished" and !free_mode:
 		_check_lap_state()
 		_check_positions()
 
 func _check_lap_state():
 	if($Player.current_lap == number_of_laps):
-		$"Control UI/CanvasLayer/WonMessageLabel".set_visible(true)
-		$"Control UI/CanvasLayer/WonMessageLabel".text = "You won!!"
+		"""
+		Nota message:
+			De momento va a tener este mensaje, la idea es cambiarlo 
+			una vez tenga hecho lo de las posiciones
+		"""
+		var message = "You finished!"
+		emit_signal("update_finish_race", true, str(message))
 		race_stat = "finished"
 		yield(get_tree().create_timer(3.0), "timeout")
 		_exit_level()
@@ -56,7 +64,7 @@ func _check_positions():
 func _exit_level():
 	$Player.queue_free()
 	$Terrain.queue_free()
-	#$"Control UI".queue_free()
+	$"Control UI".queue_free()
 	$".".queue_free()
 	print("(Main) change scene to Menu")
 	Global.check_change_scene_status(get_tree().change_scene("res://scenes/Menu.tscn"))
