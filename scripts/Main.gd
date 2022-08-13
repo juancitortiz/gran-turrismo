@@ -1,9 +1,12 @@
 extends Node2D
 
+var MyCustomSorters = preload("res://scripts/utils/MyCustomSorters.gd")
+
 var race_stat = "on course"
 onready var number_of_laps = 1
 export (bool) var free_mode = false
 onready var players = Array()
+var current_check_point = 0
 
 signal update_stats(laps, position, speed, rpm, gear)
 signal update_finish_race(visible, msg)
@@ -11,13 +14,17 @@ signal update_finish_race(visible, msg)
 func _ready():
 	number_of_laps = Global.laps
 	_set_players_list()
-	for player in players:
-		if !player.bot:
-			player.car.automatic = Global.is_auto_transmission
-		player.curve_points = _set_player_curve_points()
+	print("(Main) Positions:")
+	for i in range(players.size()):
+		if !players[i].bot:
+			players[i].car.automatic = Global.is_auto_transmission
+		players[i].curve_points = _set_player_curve_points()
+		players[i].race_position = i+1
+		print("(Main) ", players[i].race_position)
 	emit_signal("update_finish_race", false, "")
 	if free_mode:
 		print("(Main) Free mode!")
+	
 
 func _set_players_list():
 	"""
@@ -37,12 +44,12 @@ func _process(_delta):
 	var actual_speed = $Player/Car.get_speed()
 	emit_signal("update_stats",
 				str($Player.current_lap),
-				str(0), str(actual_speed),
+				str($Player.race_position), str(actual_speed),
 				str($Player/Car.get_current_rpm()),
 				str($Player/Car.get_actual_gear()))
 	if race_stat != "finished" and !free_mode:
 		_check_lap_state()
-		_check_positions()
+		#_check_positions()
 
 func _check_lap_state():
 	if($Player.current_lap == number_of_laps):
@@ -58,13 +65,40 @@ func _check_lap_state():
 		_exit_level()
 
 func _check_positions():
+	"""
+	Acerca de:
+		Aún no sirve, aca dejo igual una data pa ver si lo puedo hacer arrancar
+		"https://docs.godotengine.org/en/stable/classes/class_array.html#class-array-method-sort-custom"
+		"https://godotforums.org/discussion/25199/problem-with-array-sort-custom"
+		"https://godotengine.org/qa/57721/how-do-you-sort-an-array-of-dictionaries"
+	"""
+	var race_positions = []
+	for i in range(players.size()):
+		race_positions.append([
+			players[i].current_lap,
+			players[i].current_point_in,
+			players[i].get_instance_id()
+		])
+	print("(Main) race_positions before ", race_positions)
+	race_positions = race_positions.sort_custom(MyCustomSorters, "sort_check_points")
+	#race_positions.sort_custom(MyCustomSorters, "sort_laps")
+	print("(Main) race_positions after ", race_positions)
 	
-	pass
+	
+	for i in range(players.size()):
+		if(players[i].get_instance_id() == race_positions[i][2]):
+			players[i].race_position = i+1
+		
 
 func _exit_level():
-	$Player.queue_free()
+	for player in players:
+		player.queue_free()
 	$Terrain.queue_free()
 	$"Control UI".queue_free()
 	$".".queue_free()
 	print("(Main) change scene to Menu")
 	Global.check_change_scene_status(get_tree().change_scene("res://scenes/Menu.tscn"))
+	
+
+func is_current_check_point_changed(_player):
+	pass

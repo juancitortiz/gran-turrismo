@@ -7,6 +7,8 @@ var current_point = Vector2()
 var curve_points = Array()
 var current_point_in = 0
 var current_lap = 0
+var race_position = 0
+var can_move:bool = false
 
 
 func _ready():
@@ -20,21 +22,24 @@ func _ready():
 			$Car/Engine.is_on = true
 
 func _process(_delta):
-	if !bot and _input_manager:
-		_input_manager.handle_inputs()
-	if bot or $Car.automatic:
-		handle_gears()
-	if(curve_points != null and curve_points.size() > 0):
-		_handle_current_point()
-		if bot:
-			turn_towards_target()
+	if can_move:
+		if !bot and _input_manager:
+			_input_manager.handle_inputs()
+		if bot or $Car.automatic:
+			handle_gears()
+		if(curve_points != null and curve_points.size() > 0):
+			_handle_current_point()
+			if bot:
+				turn_towards_target()
+	else:
+		_input_manager.handle_accelerate()
 
 func _handle_current_point():
 	current_point = curve_points[current_point_in]
 	#current_point = get_viewport().get_mouse_position()
 	var proximity = current_point - $Car.get_global_position()
 	if(proximity.length() < 500):
-		if(current_point_in == curve_points.size() - 1):
+		if(is_last_check_point()):
 			current_point_in = 0
 			current_lap += 1
 			#print("(Player) changed lap to: ", current_lap)
@@ -80,3 +85,7 @@ func handle_gears():
 			$Car.gear_up = true
 		elif($Car.get_speed() < $Car.top_speed_per_gear[$Car.get_actual_gear()-1]):
 			$Car.gear_down = true
+
+func is_last_check_point() -> bool:
+	return current_point_in == curve_points.size() - 1
+
